@@ -17,4 +17,4 @@ export const assets ={
     default_avatar
 }
 
-export const url = 'http://localhost:4000'
+export const url = 'https://food-express-backend-tr7v.onrender.com'
