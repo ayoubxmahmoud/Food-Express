@@ -1,0 +1,155 @@
+/* Contact container */
+.contact-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+  
+  /* Header */
+  .contact-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .main-title, .section-title{
+      font-family: 'Arial', sans-serif;
+      font-size: 16px;
+      color: #FEA116 !important;
+      margin-bottom: 10px;
+      position: relative;
+  }
+  .main-title::before {
+      position: absolute;
+      content: "";
+      width: 45px;
+      height: 2px;
+      top: 50%;
+      left: 68vh;
+      margin-top: -1px;
+      background: #FEA116;
+  }
+  
+  .main-title::after {
+      position: absolute;
+      content: "";
+      width: 45px;
+      height: 2px;
+      top: 50%;
+      right: 68vh;
+      margin-top: -1px;
+      background: #FEA116;
+  }
+  .section-title::after{
+      position: absolute;
+      content: "";
+      width: 45px;
+      height: 2px;
+      top: 50%;
+      right: 34vh;
+      margin-top: -1px;
+      background: #FEA116;
+  }
+  
+  .contact-header h1 {
+    font-size: 36px;
+    font-weight: 700;
+  }
+  
+  /* Contact Info Section */
+  .contact-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+  
+  .contact-item {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .contact-item:last-child {
+    margin-right: 0;
+  }
+  
+  .contact-item h5, .section-title, .main-title {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: 'Pacifico', cursive;
+    color: #FEA116 !important;
+  }
+  
+  .contact-item p {
+    font-size: 16px;
+    color: #333;
+    margin-top: 5px;
+  }
+  
+  .contact-item i {
+    margin-right: 10px;
+    color: #FEA116 !important;
+  }
+  
+  /* Map and Form Section */
+  .contact-form-map {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .contact-map {
+    flex: 1;
+  }
+  
+  .map-iframe {
+    width: 100%;
+    min-height: 350px;
+    border: none;
+    border-radius: 10px;
+  }
+  
+  .contact-form {
+    flex: 1;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+    position: relative;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  .form-input:focus {
+    outline: none;
+    color: #161614 !important;
+  }
+  
+  .form-label {
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    background: #fff;
+    padding: 0 5px;
+    font-size: 14px;
+    color: #FEA116 !important;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    padding: 15px;
+    background-color: #FEA116 !important;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+      background-color: #de8601 !important;
+  }
