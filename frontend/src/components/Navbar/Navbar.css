@@ -1,0 +1,251 @@
+/* Navbar Container */
+.navbar {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; /* For positioning child elements properly */
+    z-index: 1000; /* Ensure it stays above other content */
+    background-color: #000; /* Background color of navbar */
+}
+/* Title and Logo */
+.navbar .title {
+    font-size: 24px; /* Adjust for better readability */
+    color: #FEA116;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar .logo {
+    width: 100px; /* Smaller logo for better fit */
+}
+
+/* Navbar Menu */
+.navbar-menu {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    color: #F1F8FF;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu a {
+    padding: 10px 0; /* More padding for spacing */
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit color for consistency */
+}
+.navbar-menu .active {
+    color: #FEA116;
+    padding-bottom: 2px;
+    border-bottom: 2px solid #FEA116;
+}
+
+/* Navbar Right */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Navbar Button */
+.navbar button {
+    background-color: #FEA116;
+    font-size: 14px;
+    color: #fff4f2;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navbar button:hover {
+    background-color: #ca7b06;
+}
+
+.navbar-toggler {
+    display: none; /* Default hidden */
+    background-color: #FEA116;
+    border: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px; /* Padding for better click area */
+    border-radius: 50%; /* Rounded button */
+    z-index: 1002; /* On top of everything */
+}
+
+.navbar-toggler:hover {
+    color: #000; /* Hover effect for visibility */
+}
+.navbar li{
+    cursor: pointer;
+}
+.navbar-search-icon{
+    position: relative;
+}
+.navbar-search-icon .dot{
+    position: absolute;
+    min-width: 10px;
+    min-height: 10px;
+    background-color: tomato;
+    border-radius: 5px;
+    top: -8px;
+    right: -8px;
+}
+
+.navbar-profile{
+    position: relative;
+}
+.nav-profile-dropdown{
+    position: absolute;
+    display: none;
+    right: 0;
+    z-index: 1;
+}
+.navbar-profile:hover .nav-profile-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fff2ef;
+    padding: 12px 25px;
+    border-radius: 4px;
+    border: 1px solid tomato;
+    list-style: none;
+}
+
+.nav-profile-dropdown li{
+    display: flex;
+    align-items: center;
+    color: #000;
+    gap: 10px;
+    cursor: pointer;
+}
+.nav-profile-dropdown img{
+    width: 20px;
+}
+.nav-profile-dropdown li:hover{
+    color: tomato;
+}
+
+/* Mobile Menu Open */
+.navbar.mobile-menu-open {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the left */
+}
+.navbar-menu a {
+    padding: 10px 0; /* More padding for spacing */
+    color: inherit; /* Inherit color for consistency */
+}
+.navbar.mobile-menu-open .navbar-menu {
+    display: flex; /* Show menu */
+    flex-direction: column; /* Stack items vertically */
+    width: 100%; /* Full width */
+    background-color: transparent; /* Background color */
+    padding: 10px 0; /* Padding for better spacing */
+    z-index: 999; /* On top */
+    margin-top: 10px; /* Add margin to separate from title */
+}
+.navbar.mobile-menu-open .navbar-menu .active {
+    border: none;
+}
+.navbar.mobile-menu-open .navbar-right {
+    display: flex; /* Show navbar-right */
+    flex-direction: row; /* Stack items vertically */
+    align-items: flex-start; /* Align items to the left */
+    width: 100%; /* Full width */
+    gap: 15px; /* Space between elements */
+    background-color: transparent; /* Match the background color */
+    padding: 10px 0; /* Padding for better spacing */
+    z-index: 998; /* Keep it below the navbar-menu */
+    margin-top: 10px; /* Add margin to separate from menu */
+}
+.sticky-top.navbar-dark {
+    position: fixed;
+    background: var(--dark) !important;
+}
+/* Mobile Styles */
+@media (max-width: 769px) {
+    .navbar-toggler {
+        display: block; /* Show toggle button on smaller screens */
+        position: absolute; /* Absolute positioning */
+        top: 20px; /* Adjust for proper placement */
+        right: 20px; /* Adjust for proper placement */
+        z-index: 1002; /* Ensure it's on top */
+    }
+    .navbar .title{
+        display: inline;
+    }
+    .navbar-menu {
+        display: none; /* Hide menu initially */
+    }
+    .navbar-menu.show {
+        display: flex; /* Show menu when toggled */
+        flex-direction: column;
+    }
+
+    .navbar-right {
+        display: none; /* Hide right content initially */
+    }
+
+    .navbar-right.show {
+        display: flex; /* Show right content when toggled */
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 769px) {
+    .sticky-top {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1030; /* Higher than most elements */
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    }
+}
+/* Other Media Queries Remain Unchanged */
+
+@media (max-width: 1050px) {
+    .navbar .logo {
+        width: 50px;
+    }
+    .navbar-menu {
+        font-size: 17px;
+    }
+    .navbar .title {
+        font-size: 20px;
+        color: #FEA116;
+        font-weight: 400;
+    }
+    .navbar-right img {
+        width: 30px;
+    }
+    .navbar-right button {
+        padding: 8px 25px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar .logo {
+        width: 110px;
+    }
+    .navbar-menu {
+        gap: 15px;
+        font-size: 10px;
+    }
+    .navbar-right img {
+        width: 30px;
+    }
+    .navbar-right button {
+        padding: 7px 20px;
+    }
+
+}

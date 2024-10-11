@@ -1,0 +1,156 @@
+/* Footer.css */
+
+/* General Styles */
+.footer {
+    background-color: #212529; /* Dark background */
+    color: #ffffff; /* White text */
+    padding: 50px 20px;
+    margin-top: 50px;
+  }
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .footer-section {
+    flex: 1;
+    min-width: 200px;
+  }
+  .footer-section h4 {
+    font-size: 25px;
+    font-family: 'Pacifico', cursive;
+}
+  .footer-section .desc {
+    font-family: 'Poppins', sans-serif;
+}
+  .footer-title {
+    font-size: 18px;
+    color: #f0ad4e; /* Highlight color */
+    margin-bottom: 15px;
+  }
+
+  .footer-link {
+    display: block;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-link:hover {
+    color: #f0ad4e; /* Highlight on hover */
+  }
+
+  .footer-contact {
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  .footer-social {
+    margin-top: 10px;
+    display: flex; /* Ensures the icons are displayed in a row */
+    gap: 10px; /* Adds space between icons */
+}
+  .footer-social-icon {
+    color: #ffffff;
+    width: 40px;  /* Set fixed width */
+    height: 40px; /* Set fixed height */
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s;
+    border: 1px solid #fff;
+    border-radius: 50%; /* Keeps the icon circular */
+    display: inline-flex; /* Aligns the icon content in the center */
+    align-items: center; /* Vertically centers the icon content */
+    justify-content: center; /* Horizontally centers the icon content */
+}
+
+.footer-social-icon:hover {
+    color: #f0ad4e;
+    background-color: #fff;
+}
+
+  .footer-opening-hours {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .footer-newsletter {
+    position: relative;
+    max-width: 400px;
+    margin-top: 15px;
+  }
+
+  .footer-input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #f0ad4e; /* Border color */
+    border-radius: 4px; /* Rounded corners */
+    background-color: transparent; /* Transparent background */
+    color: #fff; /* Text color */
+    font-size: 14px; /* Font size */
+    outline: none; /* Remove default outline */
+    transition: outline 0.3s; /* Smooth transition for outline */
+  }
+
+  .footer-input:focus {
+    outline: 2px solid #c47405; /* Custom outline color when focused */
+  }
+
+
+  .footer-button {
+    background-color: #f0ad4e;
+    border: none;
+    color: #212529;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+
+  .footer-button:hover {
+    background-color: #ffffff;
+    color: #212529;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .footer-menu a {
+    margin: 0 15px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-menu a:hover {
+    color: #f0ad4e;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 767px) {
+    .footer-container {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .footer-menu {
+      margin-top: 15px;
+    }
+
+    .footer-menu a {
+      display: inline-block;
+      margin: 5px 10px;
+    }
+  }
