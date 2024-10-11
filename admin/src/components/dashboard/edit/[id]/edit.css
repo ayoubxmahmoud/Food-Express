@@ -1,0 +1,104 @@
+.add {
+    width: 70%;
+    margin-left: max(5vw, 25px);
+    color: #6d6d6d;
+    font-size: 16px;
+    position: absolute;
+
+}
+
+.add form {
+    margin-bottom: 100px;
+    gap: 20px;
+}
+
+.add-img-upload img {
+    width: 120px;            /* Maintain your existing image styles */
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 8px;      /* Space between the image and the span */
+}
+
+.add-img-upload span {
+    font-size: 14px;         /* Keep your existing styles */
+    color: #007bff;
+    align-items: start;
+    text-decoration: underline;
+    position: relative;
+    right: 80px;
+    top: 10px;
+}
+
+
+.add-product-name, .add-product-description {
+    border-radius: 8px;
+    outline: none;
+    width: max(40%, 280px);
+}
+
+.add-product-name input, .add-product-description textarea {
+    outline: none;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-product-name input:focus, .add-product-description textarea:focus,
+.add-category-price select:focus, .add-price input:focus {
+    border-color: #000; /* Change border color on focus */
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow on focus */
+}
+
+.add-category-price {
+    display: flex;
+    gap: 30px;
+    padding-bottom: 20px;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.add-category-price select, .add-price input {
+    max-width: 120px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 5px; /* Add margin for spacing between buttons */
+  }
+  
+  /* Update button styling */
+  .add-btn.update-btn {
+    background-color: #28a745; /* Green color */
+    color: white;
+  }
+  
+  .add-btn.update-btn:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+  /* Cancel button styling */
+  .add-btn.cancel-btn {
+    background-color: #dc3545; /* Red color */
+    color: white;
+  }
+  
+  .add-btn.cancel-btn:hover {
+    background-color: #c82333; /* Darker red on hover */
+  }
+  

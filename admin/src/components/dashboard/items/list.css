@@ -1,0 +1,92 @@
+.list-table-format {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr;
+  align-items: center; /* Vertically center content */
+  justify-items: center; /* Horizontally center content */
+  gap: 10px;
+  padding: 12px 15px;
+  border: 1px solid #cacaca;
+  font-size: 13px;
+  overflow-x: auto; /* Ensures content fits within small screens */
+  text-align: center; /* Center the text content in each cell */
+}
+.list-table-format .action{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.list-table-format .title {
+  align-items: center;
+  background-color: #f9f9f9;
+}
+
+.list-table-format img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+}
+
+.remove-item, .edit-item {
+  cursor: pointer;
+  background-color: #cacaca;
+  padding: 4px;
+  width: 30px;
+  text-align: center; /* Ensure the 'X' is centered */
+}
+
+.remove-item:hover {
+  background-color: red;
+  color: #f9f9f9;
+}
+
+.edit-item:hover {
+  background-color: rgb(30, 69, 195);
+  color: #f9f9f9;
+}
+/* Responsive layout for small devices */
+@media (max-width: 325px) {
+  .list-table-format {
+    grid-template-columns: 2fr 3fr 1fr 1fr; /* Adjusted to fit image, name, and actions better */
+    gap: 5px;
+    font-size: 12px; /* Adjust font size for small devices */
+    text-align: center; /* Ensure text is centered in mobile */
+  }
+
+  .list-table-format.title {
+    display: none; /* Hide table headers for mobile */
+  }
+
+  .list-table-format > * {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content in mobile */
+  }
+
+  .list-table-format img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .list {
+    margin-left: 0; /* Adjust padding/margin for mobile view */
+  }
+
+  /* Ensure horizontal scrolling if necessary */
+  .list-table {
+    overflow-x: auto;
+  }
+
+  /* Center the action buttons on mobile */
+  .list-table-format .action {
+    grid-column: span 3; /* Let it span across the entire row */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+  }
+
+  /* Add padding for better spacing in mobile */
+  .list-table-format p {
+    margin: 0;
+  }
+}

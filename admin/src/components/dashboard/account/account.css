@@ -1,0 +1,13 @@
+.phone-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .phone-input input:focus {
+    border-color: #3f51b5; /* Same as the select focus style */
+    box-shadow: 0 0 5px rgba(63, 81, 181, 0.5);
+  }
+  
