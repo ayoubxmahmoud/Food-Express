@@ -1,7 +1,5 @@
 const { resolve } = require('node:path');
 
-const project = resolve(__dirname, 'tsconfig.json');
-
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -12,14 +10,9 @@ module.exports = {
     require.resolve('@vercel/style-guide/eslint/react'),
     require.resolve('@vercel/style-guide/eslint/next'),
   ],
-  parserOptions: {
-    project,
-  },
   settings: {
     'import/resolver': {
-      typescript: {
-        project,
-      },
+      typescript: {},
     },
   },
   rules: {
@@ -77,11 +70,7 @@ module.exports = {
     'no-redeclare': 'off', // conflict with TypeScript function overloads
     'react/jsx-fragments': 'off', // personal style
     'react/prop-types': 'off', // TypeScript is used for type checking
-
     '@next/next/no-img-element': 'off', // Temporary disabled
-
-    // Disable explicit-function-return-type rule
-    '@typescript-eslint/explicit-function-return-type': 'off',
   },
   ignorePatterns: [
     '.eslintrc.js',
