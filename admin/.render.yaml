@@ -1,6 +1,0 @@
-build:
-  caching:
-    paths:
-      - .next
-      - node_modules
-      - package-lock.json #if you're using npm
