@@ -1,4 +1,4 @@
-import { resolve } from 'node:path';
+const { resolve } = require('node:path'); // Use require instead of import
 
 const project = resolve(__dirname, 'tsconfig.json');
 
