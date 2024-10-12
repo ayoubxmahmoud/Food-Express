@@ -1,5 +1,6 @@
 build:
   caching:
     paths:
-      - .next  # Next.js build output directory
-      - node_modules  # To cache dependencies
+      - .next
+      - node_modules
+      - yarn.lock # Or package-lock.json if you're using npm
