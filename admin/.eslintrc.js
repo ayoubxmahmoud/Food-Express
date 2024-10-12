@@ -77,5 +77,13 @@ module.exports = {
     'no-redeclare': 'off', // conflict with TypeScript function overloads
     'react/jsx-fragments': 'off', // personal style
     'react/prop-types': 'off', // TypeScript is used for type checking
-
-    '@next/next/no-img-element': 'off', // Temporar
+    '@next/next/no-img-element': 'off', // Temporary disabled
+  },
+  ignorePatterns: [
+    '.eslintrc.js',
+    'next.config.mjs',
+    'prettier.config.mjs',
+    'node_modules/',
+    'dist/',
+  ],
+};
