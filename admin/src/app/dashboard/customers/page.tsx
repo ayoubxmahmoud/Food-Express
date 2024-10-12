@@ -9,7 +9,6 @@ import { Plus as PlusIcon } from '@phosphor-icons/react/dist/ssr/Plus';
 import { Upload as UploadIcon } from '@phosphor-icons/react/dist/ssr/Upload';
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
-import dayjs from 'dayjs';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomersFilters } from '@/components/dashboard/customer/customers-filters';
 import { CustomersTable } from '@/components/dashboard/customer/customers-table';

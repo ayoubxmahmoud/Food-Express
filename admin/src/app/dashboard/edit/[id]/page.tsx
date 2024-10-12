@@ -1,10 +1,8 @@
 "use client"
 
 import * as React from 'react';
-import type { Metadata } from 'next';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
-import { assets } from '@/assets/assets'; // Import assets for default avatar
 import Edit from '@/components/dashboard/edit/[id]/page';
 
 export default function Page(): React.JSX.Element {

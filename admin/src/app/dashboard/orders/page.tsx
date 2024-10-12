@@ -3,7 +3,6 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
-import Add from '@/components/dashboard/add/add';
 import Orders from '@/components/dashboard/orders/page';
 
 export default function Page(): React.JSX.Element {

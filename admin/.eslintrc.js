@@ -4,6 +4,7 @@ const project = resolve(__dirname, 'tsconfig.json');
 
 module.exports = {
   root: true,
+  "parser": "@typescript-eslint/parser",
   extends: [
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/typescript'),
@@ -79,4 +80,11 @@ module.exports = {
 
     '@next/next/no-img-element': 'off', // Temporary disabled
   },
+  ignorePatterns: [
+    '.eslintrc.js',
+    'next.config.mjs',
+    'prettier.config.mjs',
+    'node_modules/',
+    'dist/',
+  ],
 };
