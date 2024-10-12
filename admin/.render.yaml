@@ -3,4 +3,4 @@ build:
     paths:
       - .next
       - node_modules
-      - yarn.lock # Or package-lock.json if you're using npm
+      - package-lock.json #if you're using npm
