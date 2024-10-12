@@ -11,6 +11,7 @@ look here my : # See https://help.github.com/articles/ignoring-files/ for more a
 # production
 /build
 out
+/.next
 
 # misc
 .DS_Store
