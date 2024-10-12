@@ -1,8 +1,10 @@
-const { resolve } = require('node:path');
+import { resolve } from 'node:path';
 
-module.exports = {
+const project = resolve(__dirname, 'tsconfig.json');
+
+export default {
   root: true,
-  parser: '@typescript-eslint/parser',
+  "parser": "@typescript-eslint/parser",
   extends: [
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/typescript'),
@@ -10,9 +12,14 @@ module.exports = {
     require.resolve('@vercel/style-guide/eslint/react'),
     require.resolve('@vercel/style-guide/eslint/next'),
   ],
+  parserOptions: {
+    project,
+  },
   settings: {
     'import/resolver': {
-      typescript: {},
+      typescript: {
+        project,
+      },
     },
   },
   rules: {
@@ -50,7 +57,7 @@ module.exports = {
       },
     ],
 
-    // Deactivated rules
+    // Deactivated
     '@typescript-eslint/dot-notation': 'off', // paths are used with a dot notation
     '@typescript-eslint/no-misused-promises': 'off', // onClick with async fails
     '@typescript-eslint/no-non-null-assertion': 'off', // sometimes compiler is unable to detect
@@ -70,6 +77,7 @@ module.exports = {
     'no-redeclare': 'off', // conflict with TypeScript function overloads
     'react/jsx-fragments': 'off', // personal style
     'react/prop-types': 'off', // TypeScript is used for type checking
+
     '@next/next/no-img-element': 'off', // Temporary disabled
   },
   ignorePatterns: [
