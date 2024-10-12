@@ -4,7 +4,7 @@ const project = resolve(__dirname, 'tsconfig.json');
 
 module.exports = {
   root: true,
-  "parser": "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   extends: [
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/typescript'),
@@ -57,7 +57,7 @@ module.exports = {
       },
     ],
 
-    // Deactivated
+    // Deactivated rules
     '@typescript-eslint/dot-notation': 'off', // paths are used with a dot notation
     '@typescript-eslint/no-misused-promises': 'off', // onClick with async fails
     '@typescript-eslint/no-non-null-assertion': 'off', // sometimes compiler is unable to detect
@@ -78,13 +78,4 @@ module.exports = {
     'react/jsx-fragments': 'off', // personal style
     'react/prop-types': 'off', // TypeScript is used for type checking
 
-    '@next/next/no-img-element': 'off', // Temporary disabled
-  },
-  ignorePatterns: [
-    '.eslintrc.js',
-    'next.config.mjs',
-    'prettier.config.mjs',
-    'node_modules/',
-    'dist/',
-  ],
-};
+    '@next/next/no-img-element': 'off', // Temporar
