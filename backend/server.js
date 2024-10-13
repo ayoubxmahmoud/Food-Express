@@ -11,6 +11,10 @@ import contactRouter from "./routes/contactRoute.js";
 import 'dotenv/config'; // Load environment variables
 import countriesRouter from "./routes/countriesRoute.js";
 import adminRouter from "./routes/adminRoute.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+
 
 // Create express app
 const app = express();
@@ -22,6 +26,10 @@ app.use(cors());
 
 // db connection
 connectDB();
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // API endpoints
 app.use("/api/food", foodRouter);
@@ -36,6 +44,15 @@ app.use("/api/countries", countriesRouter);
 app.get("/", (req, res) => {
   res.send("API working");
 });
+
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Start the server
 app.listen(port, () => {
