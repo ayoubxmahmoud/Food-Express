@@ -9,7 +9,7 @@ import Stripe from "stripe"
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 // Function to handle placing a user's order from the fronend
 const placeOrder = async (req, res) => {
-    const frontend_url = "http://localhost:5173";
+    const frontend_url = "https://food-express-qomz.onrender.com/";
     try {
         console.log(req.userId);
 
