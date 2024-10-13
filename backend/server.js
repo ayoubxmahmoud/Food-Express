@@ -1,5 +1,3 @@
-// server.js
-
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./config/db.js";
@@ -8,15 +6,15 @@ import userRouter from "./routes/userRoute.js";
 import cartRouter from "./routes/cartRoute.js";
 import orderRouter from "./routes/orderRoute.js";
 import contactRouter from "./routes/contactRoute.js";
-import 'dotenv/config'; // Load environment variables
+import 'dotenv/config';
 import countriesRouter from "./routes/countriesRoute.js";
 import adminRouter from "./routes/adminRoute.js";
-
-
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 // Create express app
 const app = express();
-const port = process.env.PORT || 4000; // Use the PORT from .env or default to 4000
+const port = process.env.PORT || 4000;
 
 // Middleware
 app.use(express.json());
@@ -24,6 +22,9 @@ app.use(cors());
 
 // db connection
 connectDB();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // API endpoints
 app.use("/api/food", foodRouter);
@@ -39,6 +40,15 @@ app.get("/", (req, res) => {
   res.send("API working");
 });
 
+// Serve static assets if in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client/build')));
+
+  // Catch-all route to handle React Router
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Start the server
 app.listen(port, () => {
