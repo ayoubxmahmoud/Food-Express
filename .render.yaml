@@ -1,4 +1,0 @@
-build:
-  caching:
-    paths:
-      - package-lock.json # if you're using npm
