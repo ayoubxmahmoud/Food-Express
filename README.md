@@ -126,6 +126,7 @@ Use the admin panel to manage orders, menu items.
 ![Capture5](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/cart.PNG)
 ![Capture6](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/order.PNG)
 ![Capture7](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/payment.PNG)
+# Admin panel:
 ![Capture8](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/admin.PNG)
 ![Capture9](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/admin-items.PNG)
 ![Capture10](https://github.com/ayoubxmahmoud/Food-Express/blob/main/frontend/src/assets/screenshots/admin-profile.PNG)
