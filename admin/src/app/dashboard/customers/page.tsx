@@ -50,14 +50,15 @@ export default function Page(): React.JSX.Element {
   };
 
   useEffect(() => {
-    fetchCustomers();
+    void fetchCustomers();
   }, []);
 
   const paginatedCustomers = applyPagination(customers, page, rowsPerPage);
 
-  const handlePageChange = (_event: any, newPage: number) => {
+  const handlePageChange = (_event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
     setPage(newPage);
   };
+  
 
   const handleRowsPerPageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
