@@ -1,4 +1,8 @@
-.order-item{
+.order {
+    margin: 0;
+}
+
+.order-item {
     display: grid;
     grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr;
     align-items: start;
@@ -9,16 +13,18 @@
     font-size: 14px;
     color: #505050;
     position: relative;
-
 }
-.order-item-food, .order-item-name{
+
+.order-item-food, .order-item-name {
     font-weight: 600;
 }
-.order-item-name{
+
+.order-item-name {
     margin-top: 30px;
-    margin-bottom: 5pxs;
+    margin-bottom: 5px;
 }
-.order-item select{
+
+.order-item select {
     background-color: #ffe8e4;
     border: 1px solid tomato;
     width: max(12vw, 140px);
@@ -39,22 +45,61 @@
     position: absolute;
     right: 20px;
     top: 80%;
-  }
-  
-  .order-item button:hover {
+}
+
+.order-item button:hover {
     background-color: #c9302c;
-  }
-@media (max-width:1000px) {
-    .order-item{
+}
+
+/* Responsive styling */
+@media (max-width: 520px) {
+    .order-item {
         font-size: 12px;
-        grid-template-columns: 0.5fr 2fr 1fr;
-        padding: 15px 8px;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 15px;
     }
-    .order-item select{
-        padding: 5px;
-        font-size: 12px;
+    
+    .order-item select, .order-item button {
+        padding: 10px;
+        margin-top: 30px;
     }
-    .order-item img{
-        width: 40px;
+    
+    .order-item img {
+        width: 50px;
+    }
+}
+
+@media (max-width: 400px) {
+    .order-item {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .order-item button {
+        width: 100%;
+        margin-top: 10px;
+        position: relative;
+        right: 0;
+        top: auto;
+    }
+    
+    .order-item select {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .order-item {
+        font-size: 10px;
+    }
+    
+    .order-item select, .order-item button {
+        font-size: 10px;
+    }
+    
+    .order-item img {
+        width: 30px;
     }
 }
