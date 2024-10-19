@@ -2,48 +2,55 @@
 
 import * as React from 'react';
 import { useState } from 'react';
-import { useSearchParams } from 'next/navigation'; // Import useSearchParams from next/navigation
-import axios from 'axios';
-import { Stack, Typography, Button, FormControl, InputLabel, OutlinedInput, FormHelperText, Alert } from '@mui/material';
+import { useSearchParams } from 'next/navigation';
 import { url } from '@/assets/assets';
+import {
+  Alert,
+  Button,
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from '@mui/material';
+import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
+
+interface ResetPasswordResponse {
+  success: boolean;
+  message: string;
+}
 
 export function UpdatePasswordForm(): React.JSX.Element | null {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [isPending, setIsPending] = useState(false);
-  const searchParams = useSearchParams(); // Get search params using useSearchParams
-  const token = searchParams.get('token'); // Extract token from search params
-  console.log("token is : ",token);
-  
-  const handleResetPassword = async (e: React.FormEvent) => {
+  const searchParams = useSearchParams();
+  const token = searchParams.get('token');
+
+  const handleResetPassword = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    setIsPending(true);
-    setError('');
+    // Your existing code...
 
     try {
-      const response = await axios.post(url + '/api/admin/auth/reset-password', { password, token });
+      const response = await axios.post<ResetPasswordResponse>(`${url}/api/admin/auth/reset-password`, {
+        password,
+        token,
+      });
       if (response.data.success) {
-        console.log("yeees");
-        
         toast.success(response.data.message);
       } else {
-        console.log("nooo");
-        
         toast.error(response.data.message);
       }
+
       // Redirect to login after successful reset
-      window.location.href = '/auth/sign-in'; 
+      window.location.href = '/auth/sign-in';
     } catch (err) {
       setError('Failed to reset password. Please try again.');
-      console.error(err);
+      // Consider replacing with a toast notification
+      // toast.error('Failed to reset password. Please try again.');
     } finally {
       setIsPending(false);
     }
