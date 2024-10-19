@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -21,7 +19,6 @@ import { z as zod } from 'zod';
 import { paths } from '@/paths';
 import { authClient } from '@/lib/auth/client';
 import { useAdmin } from '@/hooks/use-admin';
-import { ToastContainer } from 'react-toastify';
 
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
@@ -34,11 +31,8 @@ const defaultValues = { email: '', password: '' } satisfies Values;
 
 export function SignInForm(): React.JSX.Element {
   const router = useRouter();
-
   const { checkSession } = useAdmin();
-
-  const [showPassword, setShowPassword] = React.useState<boolean>();
-
+  const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const [isPending, setIsPending] = React.useState<boolean>(false);
 
   const {
@@ -50,27 +44,26 @@ export function SignInForm(): React.JSX.Element {
 
   const onSubmit = React.useCallback(
     async (values: Values): Promise<void> => {
-        setIsPending(true);
-        const { error } = await authClient.signInWithPassword(values);
+      setIsPending(true);
+      const { error } = await authClient.signInWithPassword(values);
 
-        if (error) {
-            console.log("Sign in error:", error); // Log the error for debugging
-            setError('root', { type: 'server', message: error });
-            setIsPending(false);
-            return;
+      if (error) {
+        if (process.env.NODE_ENV !== 'production') {
+          console.log('Sign in error:', error); // Log the error only in development
         }
+        setError('root', { type: 'server', message: error });
+        setIsPending(false);
+        return;
+      }
 
-        // Refresh the auth state
-        await checkSession?.();
+      // Refresh the auth state
+      await checkSession?.();
 
-        // Redirect to the admin dashboard after successful login
-        router.push('/'); // Use router.push to navigate
+      // Redirect to the admin dashboard after successful login
+      router.push('/'); // Use router.push to navigate
     },
     [checkSession, router, setError]
-);
-
-
-
+  );
 
   return (
     <Stack spacing={4}>
