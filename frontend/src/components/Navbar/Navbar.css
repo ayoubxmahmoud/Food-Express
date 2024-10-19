@@ -1,6 +1,6 @@
 /* Navbar Container */
 .navbar {
-    padding: 10px 20px;
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -168,13 +168,22 @@
     position: fixed;
     background: var(--dark) !important;
 }
+
 /* Mobile Styles */
+@media (max-width: 360px) {
+    .navbar .title img{
+        display: none;
+    }
+    .navbar .title{
+        padding: 10px 0px;
+    }
+}
 @media (max-width: 769px) {
     .navbar-toggler {
         display: block; /* Show toggle button on smaller screens */
         position: absolute; /* Absolute positioning */
         top: 20px; /* Adjust for proper placement */
-        right: 20px; /* Adjust for proper placement */
+        right: 10px; /* Adjust for proper placement */
         z-index: 1002; /* Ensure it's on top */
     }
     .navbar .title{
