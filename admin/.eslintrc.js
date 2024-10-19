@@ -1,4 +1,4 @@
-const { resolve } = require('node:path'); // Use require instead of import
+const { resolve } = require('node:path');
 
 const project = resolve(__dirname, 'tsconfig.json');
 
@@ -57,14 +57,19 @@ module.exports = {
       },
     ],
 
-    // Deactivated rules
+    // Deactivated
     '@typescript-eslint/dot-notation': 'off', // paths are used with a dot notation
     '@typescript-eslint/no-misused-promises': 'off', // onClick with async fails
     '@typescript-eslint/no-non-null-assertion': 'off', // sometimes compiler is unable to detect
     '@typescript-eslint/no-unnecessary-condition': 'off', // remove when no static data is used
     '@typescript-eslint/require-await': 'off', // Server Actions require async flag always
     '@typescript-eslint/prefer-nullish-coalescing': 'off', // personal style
-    '@typescript-eslint/restrict-template-expressions': 'off', // Disabled to fix parser issues
+    '@typescript-eslint/restrict-template-expressions': [
+      'error',
+      {
+        allowNumber: true,
+      },
+    ],
     'import/no-default-export': 'off', // Next.js components must be exported as default
     'import/no-extraneous-dependencies': 'off', // conflict with sort-imports plugin
     'import/order': 'off', // using custom sort plugin
@@ -72,14 +77,10 @@ module.exports = {
     'no-redeclare': 'off', // conflict with TypeScript function overloads
     'react/jsx-fragments': 'off', // personal style
     'react/prop-types': 'off', // TypeScript is used for type checking
+    '@next/next/no-img-element': 'off', // Temporary disabled
 
-    '@next/next/no-img-element': 'off', // Temporarily disabled
+    // Disable explicit return type rule
+    '@typescript-eslint/explicit-function-return-type': 'off',
   },
-  ignorePatterns: [
-    '.eslintrc.js',
-    'next.config.mjs',
-    'prettier.config.mjs',
-    'node_modules/',
-    'dist/',
-  ],
+  ignorePatterns: ['.eslintrc.js', 'next.config.mjs', 'prettier.config.mjs', 'node_modules/', 'dist/'],
 };
