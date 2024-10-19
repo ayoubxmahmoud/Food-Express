@@ -1,17 +1,20 @@
-"use client"
+'use client';
 
 import * as React from 'react';
-import Grid from '@mui/material/Unstable_Grid2';
-import { Budget } from '@/components/dashboard/overview/budget';
-import { Orders } from '@/components/dashboard/overview/orders';
-import { TotalItems } from '@/components/dashboard/overview/total-items';
-import { TotalCustomers } from '@/components/dashboard/overview/total-customers';
-import { TotalOrders } from '@/components/dashboard/overview/total-orders';
-import axios from 'axios';
 import { url } from '@/assets/assets';
+import Grid from '@mui/material/Unstable_Grid2';
+import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
+import { Budget } from '@/components/dashboard/overview/budget';
+import { Orders } from '@/components/dashboard/overview/orders';
+import { TotalCustomers } from '@/components/dashboard/overview/total-customers';
+import { TotalItems } from '@/components/dashboard/overview/total-items';
+import { TotalOrders } from '@/components/dashboard/overview/total-orders';
 
+interface SizeResponse {
+  size: string;
+}
 export default function Page(): React.JSX.Element {
   const [totalCustomers, setTotalCustomers] = React.useState('');
   const [totalItems, setTotalItems] = React.useState('');
@@ -19,28 +22,28 @@ export default function Page(): React.JSX.Element {
 
   const fetchTotal = async () => {
     try {
-      const response1 = await axios.get(url+"/api/user/size");
-      if (response1.data.size){        
-        setTotalCustomers(response1.data.size)
+      const response1 = await axios.get<SizeResponse>(`${url}/api/user/size`);
+      if (response1.data.size) {
+        setTotalCustomers(response1.data.size);
       }
 
-      const response2 = await axios.get(url+"/api/food/size");
-      if (response2.data.size){
-        setTotalItems(response2.data.size)
+      const response2 = await axios.get<SizeResponse>(`${url}/api/food/size`);
+      if (response2.data.size) {
+        setTotalItems(response2.data.size);
       }
 
-      const response3 = await axios.get(url+"/api/order/size");
-      if (response3.data.size){
-        setTotalOrders(response3.data.size)
+      const response3 = await axios.get<SizeResponse>(`${url}/api/order/size`);
+      if (response3.data.size) {
+        setTotalOrders(response3.data.size);
       }
     } catch (error) {
-      toast.error("Failed to fetch the Total!")
+      toast.error('Failed to fetch the Total!');
     }
-  }  
+  };
   React.useEffect(() => {
-    fetchTotal();
+    void fetchTotal();
   }, []);
-  
+
   return (
     <Grid container spacing={3}>
       <Grid lg={3} sm={6} xs={12}>
@@ -50,7 +53,7 @@ export default function Page(): React.JSX.Element {
         <TotalCustomers diff={16} trend="down" sx={{ height: '100%' }} value={totalCustomers} />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
-        <TotalItems  sx={{ height: '100%' }} value={totalItems} />
+        <TotalItems sx={{ height: '100%' }} value={totalItems} />
       </Grid>
       <Grid lg={3} sm={6} xs={12}>
         <TotalOrders sx={{ height: '100%' }} value={totatlOrders} />
