@@ -47,7 +47,7 @@ export function AccountInfo({ avatar, setAvatar }: AccountInfoProps): React.JSX.
     },
   });
 
-  const fetchAdminData = async () => {
+  const fetchAdminData = async (): Promise<void> => {
     try {
       const response = await authClient.getAdmin(); // Fetch the admin data
 
@@ -56,7 +56,7 @@ export function AccountInfo({ avatar, setAvatar }: AccountInfoProps): React.JSX.
         const admin = response.data; // TypeScript now understands admin is Admin or null
 
         // Construct the avatar URL
-        const avatarUrl = admin.avatar ? `${url}/images/avatar/admin/${admin.avatar}` : assets.default_avatar.src;
+        const avatarUrl = admin.avatar ? `${url}/images/avatar/admin/${admin.avatar}` : assets.defaultAvatar.src;
 
         // Set admin data, ensuring it's typed correctly
         setAdminData({
@@ -80,7 +80,7 @@ export function AccountInfo({ avatar, setAvatar }: AccountInfoProps): React.JSX.
     }
   };
 
-  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const file = e.target.files?.[0]; // Ensure that a file is selected
     if (file) {
       setAvatar(file); // Store the file URL
@@ -90,7 +90,7 @@ export function AccountInfo({ avatar, setAvatar }: AccountInfoProps): React.JSX.
   React.useEffect(() => {
     const token = localStorage.getItem('custom-auth-token');
     if (token) {
-      fetchAdminData();
+      fetchAdminData(); // Ensure this is awaited or handled properly
     }
   }, []);
 
