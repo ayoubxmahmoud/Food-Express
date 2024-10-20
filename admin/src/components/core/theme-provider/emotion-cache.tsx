@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import { useServerInsertedHTML } from 'next/navigation';
 import createCache from '@emotion/cache';
@@ -63,7 +61,9 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
           globals.push({ name, style: style ?? '' });
         } else {
           styles += style;
-          dataEmotionAttribute += ` ${name ?? ''}`;  // Ensure name is not undefined
+          if (name) {
+            dataEmotionAttribute += ` ${name}`;  // Ensure name is not undefined before concatenating
+          }
         }
       }
     });
