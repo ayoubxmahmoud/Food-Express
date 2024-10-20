@@ -32,7 +32,14 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
 
   const handleResetPassword = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
-    // Your existing code...
+    setError(''); // Reset error before submitting
+    setIsPending(true); // Set loading state
+
+    if (!token) {
+      setError('Invalid or expired token.');
+      setIsPending(false);
+      return;
+    }
 
     try {
       const response = await axios.post<ResetPasswordResponse>(`${url}/api/admin/auth/reset-password`, {
@@ -41,12 +48,11 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
       });
       if (response.data.success) {
         toast.success(response.data.message);
+        // Redirect to login after successful reset
+        window.location.href = '/auth/sign-in';
       } else {
-        toast.error(response.data.message);
+        setError(response.data.message || 'Failed to reset password. Please try again.');
       }
-
-      // Redirect to login after successful reset
-      window.location.href = '/auth/sign-in';
     } catch (err) {
       setError('Failed to reset password. Please try again.');
     } finally {
@@ -58,7 +64,9 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
     return null; // Or show a loading spinner
   }
 
-  const isPasswordMismatch = password !== confirmPassword;
+  // Stable values for rendering conditions
+  const showPasswordMismatch = password !== confirmPassword;
+  const isFormValid = !showPasswordMismatch && password.length > 0;
 
   return (
     <Stack spacing={4}>
@@ -72,30 +80,32 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
             <OutlinedInput
               type="password"
               value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
               label="New Password"
               required
             />
           </FormControl>
 
-          <FormControl error={isPasswordMismatch}>
+          <FormControl error={showPasswordMismatch}>
             <InputLabel>Confirm Password</InputLabel>
             <OutlinedInput
               type="password"
               value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-              }}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               label="Confirm Password"
               required
             />
-            {isPasswordMismatch && <FormHelperText>Passwords do not match</FormHelperText>}
+            {showPasswordMismatch && (
+              <FormHelperText>Passwords do not match</FormHelperText>
+            )}
           </FormControl>
 
-          <Button disabled={isPending} type="submit" variant="contained">
-            Reset Password
+          <Button
+            disabled={isPending || !isFormValid} // Disable if form is invalid or loading
+            type="submit"
+            variant="contained"
+          >
+            {isPending ? 'Resetting...' : 'Reset Password'}
           </Button>
         </Stack>
       </form>
@@ -103,4 +113,3 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
     </Stack>
   );
 }
-
