@@ -35,7 +35,7 @@ export function MainNav(): React.JSX.Element {
         if (response.data) {
           const avatarUrl = response.data.avatar
             ? `${url}/images/avatar/admin/${response.data.avatar}`
-            : assets.default_avatar.src;
+            : assets.defaultAvatar.src;
 
           setAdminAvatar(avatarUrl); // Set the constructed avatar URL
         } else {
@@ -94,7 +94,7 @@ export function MainNav(): React.JSX.Element {
             <Avatar
               onClick={userPopover.handleOpen}
               ref={userPopover.anchorRef}
-              src={adminAvatar || assets.default_avatar.src} // Use the constructed avatar URL or default
+              src={adminAvatar || assets.defaultAvatar.src} // Use the constructed avatar URL or default
               sx={{ cursor: 'pointer' }}
             />
           </Stack>
