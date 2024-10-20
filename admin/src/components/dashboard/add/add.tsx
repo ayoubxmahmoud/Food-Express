@@ -88,7 +88,7 @@ export default function Add(): React.JSX.Element {
           >
             <label htmlFor="image">
               <img
-                src={image ? URL.createObjectURL(image) : (assets.upload_area.src as unknown as string)}
+                src={image ? URL.createObjectURL(image) : (assets.uploadArea.src as unknown as string)}
                 alt="Upload Area"
                 style={{ height: '120px', width: '125px', cursor: 'pointer' }}
               />
