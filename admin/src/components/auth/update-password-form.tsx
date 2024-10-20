@@ -49,8 +49,6 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
       window.location.href = '/auth/sign-in';
     } catch (err) {
       setError('Failed to reset password. Please try again.');
-      // Consider replacing with a toast notification
-      // toast.error('Failed to reset password. Please try again.');
     } finally {
       setIsPending(false);
     }
@@ -60,6 +58,8 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
     return null; // Or show a loading spinner
   }
 
+  const isPasswordMismatch = password !== confirmPassword;
+
   return (
     <Stack spacing={4}>
       <Typography variant="h5">Update your password</Typography>
@@ -67,27 +67,31 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
         <Stack spacing={2}>
           {error && <Alert severity="error">{error}</Alert>}
 
-          <FormControl error={Boolean(error && password === confirmPassword)}>
+          <FormControl error={Boolean(error)}>
             <InputLabel>New Password</InputLabel>
             <OutlinedInput
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               label="New Password"
               required
             />
           </FormControl>
 
-          <FormControl error={Boolean(error && password !== confirmPassword)}>
+          <FormControl error={isPasswordMismatch}>
             <InputLabel>Confirm Password</InputLabel>
             <OutlinedInput
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+              }}
               label="Confirm Password"
               required
             />
-            {password !== confirmPassword && <FormHelperText>Passwords do not match</FormHelperText>}
+            {isPasswordMismatch && <FormHelperText>Passwords do not match</FormHelperText>}
           </FormControl>
 
           <Button disabled={isPending} type="submit" variant="contained">
@@ -99,3 +103,4 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
     </Stack>
   );
 }
+
