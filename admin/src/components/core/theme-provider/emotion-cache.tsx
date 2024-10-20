@@ -15,7 +15,6 @@ export interface NextAppDirEmotionCacheProviderProps {
   children: React.ReactNode;
 }
 
-// Adapted from https://github.com/garronej/tss-react/blob/main/src/next/appDir.tsx
 export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionCacheProviderProps): React.JSX.Element {
   const { options, CacheProvider = DefaultCacheProvider, children } = props;
 
@@ -49,7 +48,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
     }
 
     let styles = '';
-    let dataEmotionAttribute = registry.cache.key;
+    let dataEmotionAttribute = registry.cache.key || ''; // Ensure this is a string
 
     const globals: { name: string; style: string }[] = [];
 
@@ -62,7 +61,7 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
         } else {
           styles += style;
           if (name) {
-            dataEmotionAttribute += ` ${name}`;  // Ensure name is not undefined before concatenating
+            dataEmotionAttribute += ` ${name}`; // Concatenate safely
           }
         }
       }
