@@ -45,7 +45,7 @@ export function AdminPopover({ anchorEl, onClose, open }: AdminPopoverProps): Re
       if (admin) {
         setAdminData({
           id: admin._id,
-          avatar: typeof admin.avatar === 'string' ? admin.avatar : assets.default_avatar.src, // Use the URL of the default avatar
+          avatar: typeof admin.avatar === 'string' ? admin.avatar : assets.defaultAvatar.src, // Use the URL of the default avatar
           firstName: admin.firstName,
           lastName: admin.lastName,
           email: admin.email || '',
