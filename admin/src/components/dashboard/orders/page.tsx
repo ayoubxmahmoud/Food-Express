@@ -90,7 +90,7 @@ export default function Orders(): React.JSX.Element {
       <div className="order-list">
         {orders.map((order, index) => (
           <div key={index} className="order-item">
-            <Image src={assets.parcel_icon} alt="Parcel Icon" width={50} height={50} />
+            <Image src={assets.parcelIcon} alt="Parcel Icon" width={50} height={50} />
             <div>
               <p className="order-item-food">
                 {order.items.map((item, idx) => (
