@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from 'react';
 import RouterLink from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -50,9 +48,6 @@ export function SignInForm(): React.JSX.Element {
       const { error } = await authClient.signInWithPassword(values);
 
       if (error) {
-        if (process.env.NODE_ENV !== 'production') {
-          console.log('Sign in error:', error); // Log the error only in development
-        }
         setError('root', { type: 'server', message: error });
         setIsPending(false);
         return;
