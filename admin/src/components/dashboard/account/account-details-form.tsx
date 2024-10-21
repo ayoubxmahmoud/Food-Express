@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { SelectChangeEvent } from '@mui/material/Select'; // Updated type-only import
@@ -16,7 +18,9 @@ interface City {
 }
 
 interface AccountDetailsProps {
-  // Define any props you need here
+  avatar: string | Blob; // Add avatar prop
+  setAvatar: React.Dispatch<React.SetStateAction<string | Blob>>; // Add setAvatar prop
+  // Add other existing props here if necessary
 }
 
 export function AccountDetailsForm(props: AccountDetailsProps): React.JSX.Element {
