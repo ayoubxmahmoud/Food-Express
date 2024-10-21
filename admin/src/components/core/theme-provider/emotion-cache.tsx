@@ -42,38 +42,38 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
 
   useServerInsertedHTML((): React.JSX.Element | null => {
     const inserted = registry.flush();
-  
+
     if (inserted.length === 0) {
       return null;
     }
-  
+
     let styles = '';
-    let dataEmotionAttribute = registry.cache.key ?? ''; // Use nullish coalescing to ensure it's a string
-  
+    let dataEmotionAttribute = registry.cache.key ?? ''; // Safely handle the cache key, fallback to empty string
+
     const globals: { name: string; style: string }[] = [];
-  
+
     inserted.forEach(({ name, isGlobal }) => {
       const style = registry.cache.inserted[name];
-  
+
       if (typeof style !== 'boolean') {
         if (isGlobal) {
           globals.push({ name, style: style ?? '' });
         } else {
           styles += style;
           if (name) {
-            dataEmotionAttribute += ` ${name}`; // Concatenate safely
+            dataEmotionAttribute += ` ${name}`; // Safely concatenate the name
           }
         }
       }
     });
-  
+
     return (
       <React.Fragment>
         {globals.map(
           ({ name, style }): React.JSX.Element => (
             <style
               dangerouslySetInnerHTML={{ __html: style }}
-              data-emotion={`${registry.cache.key}-global ${name}`}
+              data-emotion={`${registry.cache.key ?? ''}-global ${name}`} // Safely handle the cache key
               key={name}
             />
           )
@@ -82,7 +82,6 @@ export default function NextAppDirEmotionCacheProvider(props: NextAppDirEmotionC
       </React.Fragment>
     );
   });
-  
 
   return <CacheProvider value={registry.cache}>{children}</CacheProvider>;
 }
