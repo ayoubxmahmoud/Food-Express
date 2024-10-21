@@ -80,7 +80,7 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
             <OutlinedInput
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => { setPassword(e.target.value); }} // Fix: Add braces to avoid void expression
               label="New Password"
               required
             />
@@ -91,7 +91,7 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
             <OutlinedInput
               type="password"
               value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              onChange={(e) => { setConfirmPassword(e.target.value); }} // Fix: Add braces to avoid void expression
               label="Confirm Password"
               required
             />
