@@ -24,7 +24,7 @@ export function AdminProvider({ children }: AdminProviderProps): React.JSX.Eleme
     error: null,
     isLoading: true,
   });
-  const [token, setToken] = React.useState<string | null>(null);
+  const [, setToken] = React.useState<string | null>(null);
 
   const checkSession = React.useCallback(async (): Promise<void> => {
     try {
@@ -65,8 +65,8 @@ export function AdminProvider({ children }: AdminProviderProps): React.JSX.Eleme
       // noop
     });
 
-    if (localStorage.getItem('token')) {
-      setToken(localStorage.getItem('token'));
+    if (localStorage.getItem('custom-auth-token')) {
+      setToken(localStorage.getItem('custom-auth-token'));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps -- Expected
   }, []);
