@@ -57,7 +57,7 @@ export function AdminPopover({ anchorEl, onClose, open }: AdminPopoverProps): Re
   };
   
   React.useEffect(() => {
-    loadAdminData();
+    void loadAdminData();
   }, [])
 
   const router = useRouter();
