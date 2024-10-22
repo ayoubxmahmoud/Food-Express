@@ -55,7 +55,7 @@ export default function Page(): React.JSX.Element {
 
   const paginatedCustomers = applyPagination(customers, page, rowsPerPage);
 
-  const handlePageChange = (_event: React.MouseEvent<HTMLButtonElement>, newPage: number) => {
+  const handlePageChange = (_event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => {
     setPage(newPage);
   };
   
