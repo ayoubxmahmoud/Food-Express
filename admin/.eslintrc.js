@@ -47,6 +47,8 @@ module.exports = {
     'react/prop-types': 'off',
     '@next/next/no-img-element': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
+    "no-unused-vars": "off",
+    'no-console': 'off', // Disable no-console rule globally
   },
   ignorePatterns: ['.eslintrc.js', 'next.config.mjs', 'prettier.config.mjs', 'node_modules/', 'dist/'],
 };
