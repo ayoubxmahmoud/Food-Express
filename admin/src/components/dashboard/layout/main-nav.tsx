@@ -27,7 +27,7 @@ export function MainNav(): React.JSX.Element {
 
   const loadAdminData = async () => {
     try {
-      let token = localStorage.getItem('custom-auth-token');
+      const token = localStorage.getItem('custom-auth-token');
       if (token) {
         const response = await authClient.getAdmin();
 
@@ -48,7 +48,7 @@ export function MainNav(): React.JSX.Element {
   };
 
   React.useEffect(() => {
-    loadAdminData();
+    void loadAdminData();
   }, []);
 
   return (
@@ -69,7 +69,12 @@ export function MainNav(): React.JSX.Element {
           sx={{ alignItems: 'center', justifyContent: 'space-between', minHeight: '64px', px: 2 }}
         >
           <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-            <IconButton onClick={() => setOpenNav(true)} sx={{ display: { lg: 'none' } }}>
+            <IconButton
+              onClick={() => {
+                setOpenNav(true);
+              }}
+              sx={{ display: { lg: 'none' } }}
+            >
               <ListIcon />
             </IconButton>
             <Tooltip title="Search">
@@ -105,7 +110,12 @@ export function MainNav(): React.JSX.Element {
         onClose={userPopover.handleClose}
         open={userPopover.open}
       />
-      <MobileNav onClose={() => setOpenNav(false)} open={openNav} />
+      <MobileNav
+        onClose={() => {
+          setOpenNav(false);
+        }}
+        open={openNav}
+      />
     </React.Fragment>
   );
 }
