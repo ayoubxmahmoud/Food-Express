@@ -21,7 +21,39 @@ interface Admin {
   phone?: string;
   createdAt?: string;
 }
+interface LoginResponse {
+  success: boolean;
+  message: string;
+  accessToken: string;
+  refreshToken: string;
+}
 
+interface GenerateTokenResponse {
+  success: boolean;
+  message: string;
+  accessToken: string;
+}
+interface RefreshTokenResponse {
+  success: boolean;
+  message: string;
+  token: string;
+}
+interface ProfileResponse {
+  success: boolean;
+  message: string;
+  admin: Admin;
+}
+interface RegisterResponse {
+  success: boolean;
+  message: string;
+  admin: Admin;
+  accessToken: string;
+  refreshToken: string;
+}
+interface SendEmailResponse {
+  success: boolean;
+  message: string;
+}
 export interface SignUpParams {
   firstName: string;
   lastName: string;
@@ -50,7 +82,7 @@ export interface ResetEmailParams {
 class AuthClient {
   async signUp(params: SignUpParams): Promise<{ error?: string }> {
     try {
-      const response = await axios.post(`${url}/api/admin/register`, params);
+      const response = await axios.post<RegisterResponse>(`${url}/api/admin/register`, params);
       if (response.data.success) {
         const { accessToken, refreshToken } = response.data;
         localStorage.setItem('custom-auth-token', accessToken); // Store access token
@@ -59,7 +91,7 @@ class AuthClient {
         toast.error(response.data.message);
       }
       return {};
-    } catch (error) {
+    } catch (error: unknown) {
       toast.error('Failed to sign up.');
       return { error: 'Sign up failed' };
     }
@@ -70,30 +102,30 @@ class AuthClient {
   }
 
   async signInWithPassword(params: SignInWithPasswordParams): Promise<{ error?: string }> {
-    try {      
-        const response = await axios.post(`${url}/api/admin/login`, params);
-        if (response.data.success) {
-            const { accessToken, refreshToken } = response.data;
-            localStorage.setItem('custom-auth-token', accessToken); // Store access token
-            localStorage.setItem('refresh-token', refreshToken); // Store refresh token
-            
-            // Redirect to admin dashboard or another page after successful login
-            window.location.href = '/dashboard'; // Adjust to your admin dashboard path
-        } else {
-          return { error: response.data.message };
+    try {
+      const response = await axios.post<LoginResponse>(`${url}/api/admin/login`, params);
+      if (response.data.success) {
+        const { accessToken, refreshToken } = response.data;
+        if (accessToken && refreshToken) {
+          localStorage.setItem('custom-auth-token', accessToken); // Store access token
+          localStorage.setItem('refresh-token', refreshToken); // Store refresh token
+          // Redirect to admin dashboard or another page after successful login
+          window.location.href = '/dashboard'; // Adjust to your admin dashboard path
         }
-        return {};
-    } catch (error) {
-        return { error: 'Sign in failed' };
+      } else {
+        return { error: response.data.message };
+      }
+      return {};
+    } catch (error: unknown) {
+      return { error: 'Sign in failed' };
     }
-}
-
+  }
 
   async resetPassword(values: ResetPasswordParams): Promise<{ error?: string }> {
     try {
       const email = values.email;
       console.log('Attempting to reset password for email:', email); // Debugging line
-      const response1 = await axios.get(`${url}/api/admin/get`, {
+      const response1 = await axios.get<RegisterResponse>(`${url}/api/admin/get`, {
         params: { email },
       });
 
@@ -101,12 +133,13 @@ class AuthClient {
       if (response1.data.success) {
         const admin = response1.data.admin;
         // Call the new token generation endpoint
-        const tokenResponse = await axios.post(`${url}/api/admin/auth/generate-token`, { id: admin._id });
+        const tokenResponse = await axios.post<GenerateTokenResponse>(`${url}/api/admin/auth/generate-token`, {
+          id: admin._id,
+        });
         const token = tokenResponse.data.accessToken; // Get the generated token
         console.log('Generated token:', token); // Debugging line
 
-        const response2 = await axios.post(`${url}/api/admin/auth/send-email`, { email, token });
-        console.log('Response from send-email:', response2.data); // Debugging line
+        const response2 = await axios.post<SendEmailResponse>(`${url}/api/admin/auth/send-email`, { email, token });
 
         if (!response2.data.success) {
           return { error: response2.data.message };
@@ -115,11 +148,12 @@ class AuthClient {
         return { error: response1.data.message };
       }
       return {};
-    } catch (error: any) {
-      console.error('Password reset error: ', error); // Log the error details
-      console.error('Full error object:', error.response ? error.response.data : error); // Log the full error response
+    } catch (error: unknown) {
+      const err = error as { response?: { data: { message?: string } }; message?: string };
+      console.error('Password reset error: ', err);
+      console.error('Full error object:', err.response ? err.response.data : err);
       toast.error('Failed to reset password.');
-      return { error: error.message || 'Password reset failed' }; // Return the actual error message
+      return { error: err.message || 'Password reset failed' };
     }
   }
 
@@ -128,34 +162,33 @@ class AuthClient {
     if (!token) {
       return { data: null };
     }
-  
+
     try {
-      const response = await axios.get(`${url}/api/admin/profile`, {
-        headers: { token: token }, // Provide a fallback for token
+      const response = await axios.get<ProfileResponse>(`${url}/api/admin/profile`, {
+        headers: { token }, // Provide a fallback for token
       });
-  
+
       if (response.data.success) {
         const admin = response.data.admin || null;
         return { data: admin };
-      } else {
-        alert(response.data.message);
-        return { data: null };
       }
-    } catch (error: any) {
+      toast.error(response.data.message);
+      return { data: null };
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } }; message?: string };
       // Check for token expiration error
-      if (error.response && error.response.data.message === 'Token expired') {
+      if (err.response?.data?.message === 'Token expired') {
         const refreshToken = localStorage.getItem('refresh-token');
-  
+
         if (refreshToken) {
           try {
-            const refreshResponse = await axios.post(`${url}/api/admin/auth/refresh-token`, { refreshToken });
-  
+            const refreshResponse = await axios.post<RefreshTokenResponse>(`${url}/api/admin/auth/refresh-token`, {
+              refreshToken,
+            });
+
             if (refreshResponse.data.success && refreshResponse.data.token) {
-              token = refreshResponse.data.token || ''; // Get the new token
-              localStorage.setItem('custom-auth-token', token as string); // Save the new token
-            } else {
-              console.log("nooo refresh token");
-              
+              token = refreshResponse.data.token; // Get the new token
+              localStorage.setItem('custom-auth-token', token); // Save the new token
             }
           } catch (refreshError) {
             // Handle any errors during the refresh process
@@ -167,12 +200,11 @@ class AuthClient {
           window.location.href = '/auth/sign-in'; // Redirect to login
         }
       }
-  
+
       toast.error('Failed to fetch admin profile.'); // General error message
       return { error: 'Fetch admin profile failed' };
     }
   }
-  
 
   async signOut(): Promise<{ error?: string }> {
     localStorage.removeItem('custom-auth-token');
