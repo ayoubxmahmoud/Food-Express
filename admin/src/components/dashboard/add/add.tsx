@@ -10,15 +10,19 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
   TextField,
 } from '@mui/material';
+import type { SelectChangeEvent } from '@mui/material';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { assets, url } from '../../../assets/assets';
 
+interface AddFoodResponse {
+  success: boolean,
+  message: string
+}
 export default function Add(): React.JSX.Element {
   const [image, setImage] = useState<File | null>(null);
   const [data, setData] = useState({
@@ -29,7 +33,7 @@ export default function Add(): React.JSX.Element {
   });
 
   const onChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent<string>
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | SelectChangeEvent
   ) => {
     const { name, value } = event.target;
     setData((prevData) => ({ ...prevData, [name]: value }));
@@ -54,7 +58,7 @@ export default function Add(): React.JSX.Element {
     formData.append('image', image);
 
     try {
-      const response = await axios.post(`${url}/api/food/add`, formData);
+      const response = await axios.post<AddFoodResponse>(`${url}/api/food/add`, formData);
 
       if (response.data.success) {
         setData({
