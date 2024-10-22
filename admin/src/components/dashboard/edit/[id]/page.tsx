@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -8,24 +8,36 @@ import './edit.css';
 import { url } from '../../../../assets/assets';
 import 'react-toastify/dist/ReactToastify.css';
 
+interface FoodResponse {
+  success: boolean;
+  message: string;
+  food: Food;
+}
+
+interface Food {
+  name: string
+  description: string,
+  price: number,
+  image: string,
+  category: string
+}
 export default function Edit(): React.JSX.Element {
   const [image, setImage] = useState<File | null>(null); // Now holds the file
   const [data, setData] = useState({
-    _id: '',
     image: '',
     name: '',
     description: '',
-    price: '',
+    price: 0,
     category: 'Salad',
   });
   const { id } = useParams();
 
-  const fetchFoodItem = async () => {
+  // Wrap fetchFoodItem in useCallback
+  const fetchFoodItem = useCallback(async () => {
     try {
-      const response = await axios.get(`${url}/api/food/get/${id}`);
+      const response = await axios.get<FoodResponse>(`${url}/api/food/get/${id}`);
       if (response.data.success && response.data.food) {
         setData({
-          _id: response.data.food._id,
           image: response.data.food.image,
           name: response.data.food.name,
           description: response.data.food.description,
@@ -39,11 +51,13 @@ export default function Edit(): React.JSX.Element {
     } catch (error) {
       toast.error('Error fetching food item!');
     }
-  };
+  }, [id]); // Add id as a dependency
 
   useEffect(() => {
-    fetchFoodItem();
-  }, [id]);
+      void fetchFoodItem();
+  }, [fetchFoodItem]);
+  
+
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -76,7 +90,7 @@ export default function Edit(): React.JSX.Element {
     try {
       console.log('Updating food item with ID:', id);
 
-      const response = await axios.post(`${url}/api/food/update/${id}`, formData);
+      const response = await axios.post<FoodResponse>(`${url}/api/food/update/${id}`, formData);
       if (response.data.success) {
         toast.success(response.data.message);
       } else {
