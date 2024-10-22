@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import * as React from 'react';
 import { useState } from 'react';
@@ -46,6 +46,7 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
         password,
         token,
       });
+
       if (response.data.success) {
         toast.success(response.data.message);
         // Redirect to login after successful reset
@@ -65,7 +66,7 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
   }
 
   // Stable values for rendering conditions
-  const showPasswordMismatch = password !== confirmPassword;
+  const showPasswordMismatch = password && confirmPassword && password !== confirmPassword;
   const isFormValid = !showPasswordMismatch && password.length > 0;
 
   return (
@@ -73,32 +74,38 @@ export function UpdatePasswordForm(): React.JSX.Element | null {
       <Typography variant="h5">Update your password</Typography>
       <form onSubmit={handleResetPassword}>
         <Stack spacing={2}>
-          {error && <Alert severity="error">{error}</Alert>}
+          {Boolean(error) && <Alert severity="error">{error}</Alert>}
 
           <FormControl error={Boolean(error)}>
             <InputLabel>New Password</InputLabel>
             <OutlinedInput
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
               label="New Password"
               required
             />
           </FormControl>
 
-          <FormControl error={showPasswordMismatch}>
-            <InputLabel>Confirm Password</InputLabel>
-            <OutlinedInput
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              label="Confirm Password"
-              required
-            />
-            {showPasswordMismatch && (
-              <FormHelperText>Passwords do not match</FormHelperText>
-            )}
-          </FormControl>
+          {Boolean(password) && Boolean(confirmPassword) && (
+                        <FormControl error={Boolean(showPasswordMismatch)}>
+              <InputLabel>Confirm Password</InputLabel>
+              <OutlinedInput
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => {
+                  setConfirmPassword(e.target.value);
+                }}
+                label="Confirm Password"
+                required
+              />
+              {Boolean(showPasswordMismatch) && (
+                <FormHelperText>Passwords do not match</FormHelperText>
+              )}
+            </FormControl>
+          )}
 
           <Button
             disabled={isPending || !isFormValid} // Disable if form is invalid or loading
