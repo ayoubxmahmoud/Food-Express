@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { url } from '@/assets/assets';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -32,7 +32,7 @@ interface CustomersTableProps {
   page: number;
   rows: Customer[];
   rowsPerPage: number;
-  onPageChange: (event: any, newPage: number) => void;
+  onPageChange: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
   onRowsPerPageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -44,7 +44,7 @@ export function CustomersTable({
   onPageChange,
   onRowsPerPageChange,
 }: CustomersTableProps): React.JSX.Element {
-  const rowIds = React.useMemo(() => rows.map((customer) => customer._id), [rows]);
+  const rowIds = useMemo(() => rows.map((customer) => customer._id), [rows]);
 
   const { selectAll, deselectAll, selectOne, deselectOne, selected } = useSelection(rowIds);
 
@@ -61,7 +61,9 @@ export function CustomersTable({
                 <Checkbox
                   checked={selectedAll}
                   indeterminate={selectedSome}
-                  onChange={(event) => (event.target.checked ? selectAll() : deselectAll())}
+                  onChange={(event) => {
+                    event.target.checked ? selectAll() : deselectAll();
+                  }}
                 />
               </TableCell>
               <TableCell>Name</TableCell>
@@ -97,11 +99,11 @@ export function CustomersTable({
                   </TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell>
-                    {`${row.address?.street || ''},`}
+                    {row.address?.street || ''},
                     <br />
-                    {`${row.address?.city || ''} ,`}
+                    {row.address?.city || ''},
                     <br />
-                    {`${row.address?.country || ''}`}
+                    {row.address?.country || ''}
                   </TableCell>
                   <TableCell>{row.phone}</TableCell>
                   <TableCell>{dayjs(row.createdAt).format('MMMM D, YYYY')}</TableCell>
