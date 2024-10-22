@@ -13,7 +13,6 @@ export default function Page(): React.JSX.Element {
   // Lift the avatar state to Page component
   const [avatar, setAvatar] = React.useState<string | Blob>(assets.defaultAvatar.src); // Set the initial avatar as the default URL
 
-
   return (
     <Stack spacing={3}>
       <div>
