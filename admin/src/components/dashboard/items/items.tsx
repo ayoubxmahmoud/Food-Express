@@ -1,5 +1,6 @@
 'use client';
 
+// other imports remain unchanged
 import React, { useEffect, useRef, useState } from 'react';
 
 import './list.css';
@@ -7,12 +8,11 @@ import './list.css';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 
-import { assets, url } from '../../../assets/assets';
+import { url } from '../../../assets/assets';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 import { useRouter } from 'next/navigation'; // Correct hook for app directory
-
 import { faEdit, faXmark } from '@fortawesome/free-solid-svg-icons'; // Import the edit and trash icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from 'sweetalert2';
@@ -54,7 +54,7 @@ export default function List(): React.JSX.Element {
 
   // Remove a food item from the list
   const removeFood = async (foodId: string) => {
-    Swal.fire({
+    await Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
       icon: 'warning',
@@ -68,7 +68,7 @@ export default function List(): React.JSX.Element {
           const response = await axios.post<ApiResponse>(`${url}/api/food/remove`, { id: foodId });
           if (response.data.success) {
             await fetchList(); // Refetch the list after deletion
-            Swal.fire('Deleted!', 'Your food item has been deleted.', 'success');
+            await Swal.fire('Deleted!', 'Your food item has been deleted.', 'success');
           } else {
             toast.error('Error occurred when removing food item');
           }
@@ -80,8 +80,7 @@ export default function List(): React.JSX.Element {
   };
 
   useEffect(() => {
-    fetchList(); // Fetch the food list on component mount
-
+    void fetchList(); // Fetch the food list on component mount
     if (myRef.current) {
       console.log(myRef.current); // Ensure the ref is available
     }
@@ -105,12 +104,27 @@ export default function List(): React.JSX.Element {
             <p>{item.category}</p>
             <p>{item.price}</p>
             <div className="action">
-              <p className="edit-item" onClick={() => router.push(`${paths.dashboard.edit}/${item._id}`)}>
-                <FontAwesomeIcon icon={faEdit} />{' '}
-              </p>
-              <p onClick={() => removeFood(item._id)} className="remove-item">
+              <button
+                type="button"
+                className="edit-item"
+                onClick={() => {
+                  router.push(`${paths.dashboard.edit}/${item._id}`);
+                }}
+                aria-label={`Edit ${item.name}`}
+              >
+                <FontAwesomeIcon icon={faEdit} />
+              </button>
+
+              <button
+                type="button"
+                className="remove-item"
+                onClick={() => {
+                  void removeFood(item._id);
+                }}
+                aria-label={`Remove ${item.name}`}
+              >
                 <FontAwesomeIcon icon={faXmark} />
-              </p>
+              </button>
             </div>
           </div>
         ))}
