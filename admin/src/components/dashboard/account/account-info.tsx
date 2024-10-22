@@ -90,7 +90,7 @@ export function AccountInfo({ avatar, setAvatar }: AccountInfoProps): React.JSX.
   React.useEffect(() => {
     const token = localStorage.getItem('custom-auth-token');
     if (token) {
-      fetchAdminData(); // Ensure this is awaited or handled properly
+      void fetchAdminData(); // Ensure this is awaited or handled properly
     }
   }, []);
 
